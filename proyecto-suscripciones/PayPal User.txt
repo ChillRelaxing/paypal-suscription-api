@@ -1,0 +1,47 @@
+-- Nombre de la base de datos: suscripciones
+
+-- Nombre de la colección: suscripcions
+
+-- Thunder (POST)
+
+http://localhost:3000/api/suscripciones/suscribir
+
+-- Body
+
+{
+  "nombre":"Leo7",
+  "correo":"LeoHernandez7@gmail.com",
+  "telefono":"98764565",
+  "planId":"P-381473247X999280WM5JEHUA"
+}
+
+
+-- Usuario Empresa:
+
+Correo: sb-y43dvp34533024@business.example.com
+
+Contraseña: FT7)VsFc
+
+-- Enlace para entrar como usuario: https://sandbox.paypal.com
+
+
+-- Usuario Cliente:
+
+Correo: sb-asgi534511799@personal.example.com
+
+Contraseña: +d7%TPQx
+
+-- Enlace para entrar como Cliente: https://sandbox.paypal.com
+
+
+-- Rutas
+
+http://localhost:3000/
+
+
+http://localhost:3000/cancelar-suscripcion.html
+
+
+
+
+

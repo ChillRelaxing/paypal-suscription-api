@@ -1,0 +1,21 @@
+{
+    "name": "proyecto-suscripciones",
+    "version": "1.0.0",
+    "description": "Sistema de Suscripciones con PayPal",
+    "main": "backend/server.js",
+    "scripts": {
+      "start": "node backend/server.js",
+      "dev": "nodemon backend/server.js"
+    },
+    "dependencies": {
+      "express": "^4.18.2",
+      "mongoose": "^7.3.1",
+      "dotenv": "^16.3.1",
+      "@paypal/checkout-server-sdk": "^1.0.2",
+      "body-parser": "^1.20.2",
+      "cors": "^2.8.5"
+    },
+    "devDependencies": {
+      "nodemon": "^3.0.1"
+    }
+  }

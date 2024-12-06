@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suscripción</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    form {
+      max-width: 400px;
+      margin: auto;
+      padding: 30px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: #f9f9f9;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      text-align: left;
+      font-weight: bold;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .error {
+      color: red;
+    }
+
+    .product-image {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      margin: 0 auto 20px;
+      display: block;
+    }
+
+    .product-description {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .product-description p {
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <h1>Suscríbete a un Plan de E-Books</h1>
+  
+  <img src="img/imgProduc.webp" alt="E-Books" class="product-image">
+
+  <div class="product-description">
+    <p>Accede a una biblioteca ilimitada de e-books y descubre nuevas historias, amplía tu conocimiento o mejora tus habilidades con nuestra plataforma de lectura digital.</p>
+  </div>
+
+  <form id="suscripcionForm">
+    <label for="nombre">Nombre Completo:</label>
+    <input type="text" id="nombre" name="nombre" placeholder="Ejemplo: Juan Pérez" required>
+
+    <label for="correo">Correo Electrónico:</label>
+    <input type="email" id="correo" name="correo" placeholder="Ejemplo: juan@example.com" required>
+
+    <label for="telefono">Teléfono:</label>
+    <input type="tel" id="telefono" name="telefono" placeholder="Ejemplo: 555555555" required>
+
+    <label for="planId">Selecciona un Plan:</label>
+    <select id="planId" name="planId" required>
+      <option value="">-- Seleccionar --</option>
+      <option value="P-381473247X999280WM5JEHUA">Plan Básico - $9.99/mes</option>
+    </select>
+
+    <button type="submit">Suscribirse</button>
+    <p class="error" id="errorMessage" style="display: none;"></p>
+  </form>
+
+  <script>
+    document.getElementById('suscripcionForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const nombre = document.getElementById('nombre').value;
+      const correo = document.getElementById('correo').value;
+      const telefono = document.getElementById('telefono').value;
+      const planId = document.getElementById('planId').value;
+      const errorMessage = document.getElementById('errorMessage');
+
+      if (!planId) {
+        errorMessage.textContent = 'Por favor, selecciona un plan.';
+        errorMessage.style.display = 'block';
+        return;
+      }
+
+      try {
+        const response = await fetch('http://localhost:3000/api/suscripciones/suscribir', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nombre, correo, telefono, planId })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || 'Error al crear la suscripción');
+        }
+
+        window.location.href = data.approvalLink;
+      } catch (error) {
+        console.error(error);
+        errorMessage.textContent = error.message;
+        errorMessage.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>
